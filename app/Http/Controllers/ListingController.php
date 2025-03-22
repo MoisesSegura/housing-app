@@ -61,6 +61,13 @@ class ListingController extends Controller
         return redirect()->route('/')->with('success', 'Propiedad creada exitosamente.');
     }
     
+    public function myListings()
+    {
+        // $listings = auth()->user()->listings; 
+        $listings = Listing::all();
+        return view('listings.myListings', compact('listings'));
+    }
+
 
     public function show(Listing $listing)
     {
@@ -69,23 +76,33 @@ class ListingController extends Controller
 
     public function edit(Listing $listing)
     {
-        return view('listings.edit', compact('listing'));
+        $provinces = Province::all();
+        return view('listings.edit', compact('listing', 'provinces'));
     }
+    
 
 
     public function update(Request $request, Listing $listing)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required',
-            'price' => 'required|numeric',
+            'description' => 'required|string',
+            'province_id' => 'required|exists:provinces,id',
             'location' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'price_per_night' => 'required|numeric',
+            'max_guests' => 'required|integer',
+            'bedrooms' => 'required|integer',
+            'bathrooms' => 'required|integer',
+            'status' => 'required|in:active,inactive',
         ]);
-
+    
         $listing->update($request->all());
-
-        return redirect()->route('listings.index')->with('success', 'Propiedad actualizada correctamente.');
+    
+        return redirect()->route('listings.myListings')->with('success', 'Propiedad actualizada correctamente.');
     }
+    
 
 
     public function destroy(Listing $listing)

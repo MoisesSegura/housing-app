@@ -5,15 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clon de Airbnb</title>
-    @vite(['resources/css/app.css']) <!-- Si usas Vite -->
+    @vite(['resources/css/app.css']) 
 </head>
 <body class="bg-gray-100">
 
 
     @include('partials.navbar')
-
-    <!-- Hero Section -->
-   
 
 
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
@@ -21,7 +18,7 @@
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registrar Nueva Propiedad</h2>
 
       
-        <form action="{{ route('listings.store') }}" method="POST">
+        <form action="{{ route('listings.store') }}" method="PATCH">
             @csrf
 
          
@@ -107,10 +104,8 @@
 </div>
 
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center py-6 mt-12">
-        <p>&copy; 2025 MiAirbnb. Todos los derechos reservados.</p>
-    </footer>
+  @include('partials.footer')
+
 
 </body>
 </html>

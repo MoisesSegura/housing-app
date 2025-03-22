@@ -1,10 +1,10 @@
     <!-- Navbar -->
     <header class="bg-white shadow-md">
         <div class="container mx-auto flex justify-between items-center p-4">
-            <!-- Logo -->
-            <a href="#" class="text-red-500 text-2xl font-bold">MiAirbnb</a>
+     
+            <a href="{{ route('listings.index') }}" class="text-red-500 text-2xl font-bold">MiAirbnb</a>
 
-            <!-- Menú -->
+
             <nav class="space-x-6 flex items-center">
     <a href="/" class="text-gray-700 hover:text-red-500">Inicio</a>
 

@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clon de Airbnb</title>
-    @vite(['resources/css/app.css']) <!-- Si usas Vite -->
+    @vite(['resources/css/app.css'])
 </head>
 <body class="bg-gray-100">
 
 
     @include('partials.navbar')
 
-<!-- Sección de Listings -->
+
 <section class="container mx-auto px-4 py-12">
     <h2 class="text-3xl font-semibold mb-6 text-center">Alojamientos disponibles</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach($listings as $listing)
             <div class="border rounded-lg shadow-lg overflow-hidden">
-                <!-- Imagen del listing o color de fondo si no hay imagen -->
+             
                 @if($listing->image)
                     <img src="{{ asset('storage/' . $listing->image) }}" alt="Imagen de {{ $listing->title }}" class="w-full h-48 object-cover">
                 @else
@@ -27,13 +27,13 @@
                     </div>
                 @endif
 
-                <!-- Información del listing -->
+               
                 <div class="p-4">
                     <h3 class="text-xl font-bold">{{ $listing->title }}</h3>
                     <p class="text-gray-600 text-sm">{{ $listing->location }}, {{ $listing->province->name }}</p>
                     <p class="text-gray-800 font-semibold mt-2">${{ number_format($listing->price_per_night, 2) }} / noche</p>
                     
-                    <!-- Botón de Ver más -->
+                   
                     <a href="{{ route('listings.show', $listing) }}" class="mt-4 block text-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg">Ver más</a>
                 </div>
             </div>
@@ -94,10 +94,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center py-6 mt-12">
-        <p>&copy; 2025 MiAirbnb. Todos los derechos reservados.</p>
-    </footer>
+    @include('partials.footer')
 
 </body>
 </html>
