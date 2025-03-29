@@ -32,7 +32,7 @@
         <div class="text-xl font-semibold text-gray-800">${{ number_format($listing->price_per_night, 2) }} / noche</div>
     </div>
 
-    <!-- Información del alojamiento -->
+ 
     <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
             <p class="text-gray-700">{{ $listing->description }}</p>
@@ -49,7 +49,20 @@
         </div>
     </div>
 
-    <!-- Mapa -->
+    @if ($listing->tags->isNotEmpty())
+    <div class="mt-4">
+        <h3 class="text-lg font-semibold">Tags:</h3>
+        <div class="flex flex-wrap gap-2 mt-2">
+            @foreach ($listing->tags as $tag)
+                <span class="bg-blue-100 text-blue-700 text-sm font-medium px-3 py-1 rounded-full">
+                    {{ $tag->name }}
+                </span>
+            @endforeach
+        </div>
+    </div>
+@endif
+
+
     <div class="mt-8">
         <h2 class="text-2xl font-semibold mb-4">Ubicación</h2>
         <div class="w-full h-[300px] bg-gray-200 rounded-lg">
@@ -66,7 +79,7 @@
         </div>
     </div>
 
-    <!-- Botón de regresar -->
+  
     <div class="mt-6">
         <a href="{{ route('listings.index') }}" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">Volver</a>
     </div>

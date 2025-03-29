@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clon de Airbnb</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     @vite(['resources/css/app.css']) 
 </head>
 <body class="bg-gray-100">
@@ -18,7 +19,7 @@
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registrar Nueva Propiedad</h2>
 
       
-        <form action="{{ route('listings.store') }}" method="PATCH">
+        <form action="{{ route('listings.store') }}" method="POST">
             @csrf
 
          
@@ -93,15 +94,20 @@
                 </select>
             </div>
 
+
+            @include('partials.tags')
           
             <div class="text-center">
                 <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
                     Guardar Propiedad
                 </button>
             </div>
+
+
         </form>
     </div>
 </div>
+
 
 
   @include('partials.footer')

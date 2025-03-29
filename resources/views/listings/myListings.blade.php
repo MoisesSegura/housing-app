@@ -7,13 +7,13 @@
     @vite(['resources/css/app.css'])
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100 flex flex-col min-h-screen">
 
 
     @include('partials.navbar')
 
   
-<div class="container mx-auto p-6">
+<div class="container mx-auto p-6 flex-grow">
     <h2 class="text-3xl font-semibold mb-6">Mis Propiedades</h2>
 
   

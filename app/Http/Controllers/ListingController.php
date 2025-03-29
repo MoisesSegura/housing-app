@@ -22,7 +22,8 @@ class ListingController extends Controller
     public function create()
     {
         $provinces = Province::all();
-        return view('listings.create', compact('provinces'));
+        $tags = Tag::all();
+        return view('listings.create', compact('provinces','tags'));
     }
 
 
@@ -40,9 +41,11 @@ class ListingController extends Controller
             'status' => 'required|in:active,inactive',
             'latitude' => 'required',
             'longitude' => 'required',
+            'tags' => 'array',  
+            'tags.*' => 'exists:tags,id', 
         ]);
     
-        Listing::create([
+        $listing = Listing::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
             'description' => $request->description,
@@ -56,28 +59,39 @@ class ListingController extends Controller
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
         ]);
+
+        if ($request->has('tags')) {
+            $listing->tags()->sync($request->tags);
+        }    
     
-    
-        return redirect()->route('/')->with('success', 'Propiedad creada exitosamente.');
+        return redirect()->route('listings.index')->with('success', 'Propiedad creada exitosamente.');
     }
     
     public function myListings()
     {
-        // $listings = auth()->user()->listings; 
-        $listings = Listing::all();
+        $user = auth()->user();
+    
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión.');
+        }
+    
+        $listings = $user->listings ?? collect(); 
         return view('listings.myListings', compact('listings'));
     }
+    
 
 
     public function show(Listing $listing)
     {
+        $listing->load('tags');
         return view('listings.show', compact('listing'));
     }
 
     public function edit(Listing $listing)
     {
         $provinces = Province::all();
-        return view('listings.edit', compact('listing', 'provinces'));
+        $tags = Tag::all();
+        return view('listings.edit', compact('listing', 'provinces', 'tags'));
     }
     
 
@@ -108,6 +122,6 @@ class ListingController extends Controller
     public function destroy(Listing $listing)
     {
         $listing->delete();
-        return redirect()->route('listings.index')->with('success', 'Propiedad eliminada.');
+        return redirect()->route('listings.myListings')->with('success', 'Propiedad eliminada.');
     }
 }
